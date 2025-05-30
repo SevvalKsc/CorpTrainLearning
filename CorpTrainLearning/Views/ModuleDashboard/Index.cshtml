@@ -1,0 +1,54 @@
+@model CorpTrainLearning.ViewModels.ModuleDashboardViewModel
+
+@{
+    ViewData["Title"] = "My Modules Dashboard";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.CurrentUser != null)
+{
+    <p>Welcome, @Model.CurrentUser.Name!</p>
+}
+
+<hr />
+
+<h2>Modules by Course</h2>
+
+@if (Model.EnrolledCourses != null && Model.EnrolledCourses.Any())
+{
+    @foreach (var course in Model.EnrolledCourses.OrderBy(c => c.CourseTitle))
+    {
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Course: @course.CourseTitle</h3>
+            </div>
+            <div class="card-body">
+                @if (course.Modules != null && course.Modules.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var module in course.Modules)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Type:</strong> @module.ModuleType
+                                    <br />
+                                    <strong>Content:</strong> @module.ContentSnippet
+                                </div>
+                                <a asp-controller="ModuleDashboard" asp-action="ViewModuleContent" asp-route-id="@module.ModuleId" class="btn btn-info btn-sm">View Full Content</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No modules found for this course.</p>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>You are not currently enrolled in any courses with modules.</p>
+}

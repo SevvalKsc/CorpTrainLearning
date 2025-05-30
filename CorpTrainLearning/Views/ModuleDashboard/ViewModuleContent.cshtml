@@ -1,0 +1,32 @@
+@model CorpTrainLearning.ViewModels.FullModuleContentViewModel
+
+@{
+    ViewData["Title"] = $"Module (ID: {Model.ModuleId}) Content";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Course:</dt>
+    <dd class="col-sm-9">@Model.CourseTitle</dd>
+
+    <dt class="col-sm-3">Module Type:</dt>
+    <dd class="col-sm-9">@Model.ModuleType</dd>
+
+    <dt class="col-sm-3">Module ID:</dt>
+    <dd class="col-sm-9">@Model.ModuleId</dd>
+</dl>
+
+<hr />
+
+<h2>Full Content</h2>
+<div class="card mb-3">
+    <div class="card-body">
+        @* Added style to ensure text wraps within the pre tag *@
+        <pre class="card-text" style="white-space: pre-wrap;">@Model.FullContent</pre>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-controller="ModuleDashboard" asp-action="Index" class="btn btn-secondary">Back to Modules Dashboard</a>
+</div>

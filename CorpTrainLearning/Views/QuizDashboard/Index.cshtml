@@ -1,0 +1,65 @@
+@model CorpTrainLearning.ViewModels.QuizDashboardViewModel
+
+@{
+    ViewData["Title"] = "Quiz Dashboard";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.CurrentUser != null)
+{
+    <p>Welcome, @Model.CurrentUser.Name (@Model.CurrentUser.Email)!</p>
+}
+else
+{
+    <p>Please log in to view quizzes.</p>
+    <a asp-controller="Account" asp-action="Login">Log In</a>
+}
+
+<hr />
+
+<h2>Quizzes Not Yet Attempted</h2>
+@if (Model.QuizzesNotAttempted != null && Model.QuizzesNotAttempted.Any())
+{
+    <ul class="list-group">
+        @foreach (var quiz in Model.QuizzesNotAttempted)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>Quiz ID: @quiz.QuizId</strong> (Course: @quiz.CourseTitle)
+                    <br />
+                    <small>@quiz.QuizDescription</small>
+                </div>
+                <a asp-controller="QuizDashboard" asp-action="TakeQuiz" asp-route-id="@quiz.QuizId" class="btn btn-success btn-sm">Take Quiz</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No new quizzes available for courses you are currently enrolled in, or you have attempted all of them.</p>
+}
+
+<hr />
+
+<h2>Previous Quiz Attempts</h2>
+@if (Model.PreviousQuizAttempts != null && Model.PreviousQuizAttempts.Any())
+{
+    <ul class="list-group">
+        @foreach (var attempt in Model.PreviousQuizAttempts.OrderByDescending(a => a.AttemptDate))
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>Quiz ID: @attempt.QuizId</strong> (Course: @attempt.CourseTitle)
+                    <br />
+                    Score: <strong>@attempt.Score/100</strong> on @attempt.AttemptDate.ToShortDateString()
+                </div>
+                <a asp-controller="QuizDashboard" asp-action="AttemptDetails" asp-route-id="@attempt.QuizAttemptId" class="btn btn-info btn-sm">View Attempt</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>You have not attempted any quizzes yet.</p>
+}

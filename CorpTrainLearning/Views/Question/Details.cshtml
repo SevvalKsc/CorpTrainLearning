@@ -1,0 +1,42 @@
+@model CorpTrainLearning.Models.Question
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionText)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuestionText)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MultipleChoices)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MultipleChoices)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CorrectAnswer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CorrectAnswer)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quiz)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quiz.QuizId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.QuestionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,68 @@
+﻿@model CorpTrainLearning.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if (Model.CurrentUser != null)
+    {
+        @if (Model.IsAdmin)
+        {
+            <h1 class="display-4">Welcome, Admin @Model.CurrentUser.Name!</h1>
+            <p class="lead mt-4">You are logged in as an administrator. Manage your LMS:</p>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <a asp-controller="Course" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage Courses 📚
+                </a>
+                <a asp-controller="Module" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage Modules 🗂️
+                </a>
+                <a asp-controller="Quiz" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage Quizzes 📝
+                </a>
+                <a asp-controller="Question" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage Questions ✍️
+                </a>
+                <a asp-controller="User" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage Users 👥
+                </a>
+                <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage Admins 👤
+                </a>
+                <a asp-controller="Role" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage Roles 💼
+                </a>
+                <a asp-controller="UserRole" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    Manage User Roles 💻
+                </a>
+                <a asp-controller="QuizAttempt" asp-action="Index" class="btn btn-secondary btn-lg mt-2">
+                    View Quiz Attempts 🎯
+                </a>
+            </div>
+        }
+        else
+        {
+            <h1 class="display-4">Welcome, @Model.CurrentUser.Name!</h1>
+            <p class="lead mt-4">Access your training resources:</p>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <a asp-controller="CourseEnrollment" asp-action="Index" class="btn btn-primary btn-lg mt-2">
+                    Enroll in / View My Courses 📚
+                </a>
+                <a asp-controller="ModuleDashboard" asp-action="Index" class="btn btn-info btn-lg mt-2">
+                    Go to Module Dashboard 🗂️
+                </a>
+                <a asp-controller="QuizDashboard" asp-action="Index" class="btn btn-success btn-lg mt-2">
+                    Go to Quiz Dashboard 🏠
+                </a>
+            </div>
+        }
+    }
+    else
+    {
+        <h1 class="display-4">Welcome!</h1>
+        <p>Please <a asp-controller="Account" asp-action="Login">log in</a> to access your dashboards.</p>
+    }
+</div>
